@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hymn Trainer - {{ hymn_title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.1.0/build/opensheetmusicdisplay.min.js"></script>
+    <style>
+        :root {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --text: #e0e0e0;
+            --accent-on: #00e676;
+            --accent-off: #ff5252;
+            --info: #2196f3;
+            --highlight: #ffd740;
+            --sidebar-width: 280px;
+            --warning: #ffa000;
+        }
+
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            overflow: hidden; 
+        }
+
+        /* --- Sidebar Styles --- */
+        #hymn-sidebar {
+            width: var(--sidebar-width);
+            background: #181818;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--info);
+            border-bottom: 1px solid #333;
+        }
+
+        .hymn-list {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .hymn-link {
+            display: block;
+            padding: 12px 20px;
+            color: #bbb;
+            text-decoration: none;
+            border-bottom: 1px solid #252525;
+            transition: 0.2s;
+        }
+
+        .hymn-link:hover {
+            background: #252525;
+            color: var(--highlight);
+        }
+
+        .hymn-link.active {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--info);
+            border-left: 4px solid var(--info);
+        }
+
+        .hymn-link-title {
+            font-weight: bold;
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .hymn-link-meta {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* --- Main Content Area --- */
+        .container { 
+            flex-grow: 1;
+            height: 100vh;
+            padding: 15px; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .hymn-meta { display: flex; gap: 10px; }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            color: var(--info);
+            text-transform: uppercase;
+        }
+        
+        #status { font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .ready { background: #1b5e20; color: #a5d6a7; border: 1px solid #2e7d32; }
+        .waiting { background: #3e2723; color: #d7ccc8; border: 1px solid #4e342e; }
+        .error { background: #b71c1c; color: #ffcdd2; border: 1px solid #d32f2f; }
+        .no-device { background: var(--warning); color: #000; }
+
+        .trainer-box {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            text-align: center;
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Audio Overlay */
+        #audio-unlock {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+        }
+        
+        #audio-unlock button {
+            padding: 15px 30px;
+            background: var(--info);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chord-display { font-size: 1.6rem; font-weight: bold; color: var(--highlight); margin: 5px 0; }
+        
+        #music-container {
+            background: white;
+            border-radius: 8px;
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+
+        .display-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 2fr; 
+            gap: 10px; 
+            height: 110px; 
+        }
+
+        .footer-card {
+            background: #000;
+            border-radius: 6px;
+            padding: 8px;
+            border: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h3 { margin: 0 0 5px 0; font-size: 0.7rem; color: var(--info); text-transform: uppercase; }
+
+        #active-keys-display { 
+            font-size: 1rem; 
+            color: var(--accent-on);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        #log { 
+            flex-grow: 1;
+            overflow-y: auto; 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.7rem; 
+        }
+    </style>
+</head>
+<body>
+
+<nav id="hymn-sidebar">
+    <div class="sidebar-header">HYMN LIBRARY</div>
+    <div class="hymn-list">
+        {% for hymn in all_hymns %}
+        <a href="?hymn={{ hymn.title }}" class="hymn-link {% if hymn.title == hymn_title %}active{% endif %}">
+            <span class="hymn-link-title">{{ hymn.title }}</span>
+            <span class="hymn-link-meta">{{ hymn.Tune|truncatechars:20 }} | {{ hymn.Key }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</nav>
+
+<div class="container">
+    <header>
+        <div>
+            <h1 style="font-size: 1rem; margin-bottom: 4px;">{{ hymn_title|upper }}</h1>
+            <div class="hymn-meta">
+                <span class="badge">Tune: {{ tune|default:"Unknown" }}</span>
+                <span class="badge">Key: {{ key_signature|default:"--" }}</span>
+            </div>
+        </div>
+        <div id="status" class="waiting">SCANNING FOR MIDI...</div>
+    </header>
+
+    <div class="trainer-box">
+        <div id="audio-unlock">
+            <button onclick="enableAudio()">ENABLE AUDIO TO START</button>
+        </div>
+
+        <div id="progress-tracker" style="font-size: 0.8rem; opacity: 0.7;">Step 1</div>
+        <div class="chord-display" id="target-chord">Loading...</div>
+        
+        <div id="music-container"></div>
+        
+        <div style="font-size: 0.7rem; opacity: 0.6;">Play the notes shown above on your MIDI controller</div>
+    </div>
+
+    <div class="display-grid">
+        <div class="footer-card">
+            <h3>Keys Pressed</h3>
+            <div id="active-keys-display">--</div>
+        </div>
+
+        <div class="footer-card">
+            <h3>Activity Log</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Audio Engine
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const activeOscillators = {};
+
+    function enableAudio() {
+        audioCtx.resume().then(() => {
+            document.getElementById('audio-unlock').style.display = 'none';
+            logActivity("Audio Engine Started");
+        });
+    }
+
+    function playNote(midiNumber) {
+        stopNote(midiNumber); // Safety cleanup
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        // Organ-like sound (Triangle wave is softer than Sawtooth)
+        osc.type = 'triangle'; 
+        osc.frequency.setValueAtTime(440 * Math.pow(2, (midiNumber - 69) / 12), audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.02); // Attack
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        activeOscillators[midiNumber] = { osc, gain };
+    }
+
+    function stopNote(midiNumber) {
+        if (activeOscillators[midiNumber]) {
+            const { osc, gain } = activeOscillators[midiNumber];
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1); // Release
+            osc.stop(audioCtx.currentTime + 0.15);
+            delete activeOscillators[midiNumber];
+        }
+    }
+
+    // 2. Data Injection
+    const musicXml = `{{ xml_data|escapejs }}`;
+    const rawProgression = JSON.parse('{{ progression_json|safe }}');
+    
+    function cleanArtifacts(text) {
+        if (typeof text !== 'string') return text;
+        return text.replace(/Instr\.\s*\S+/g, '').trim();
+    }
+
+    const progression = rawProgression.map(item => ({ 
+        notes: item[0].map(n => cleanArtifacts(n)), 
+        duration: item[1] 
+    }));
+
+    // 3. OSMD Config
+    const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-container", {
+        drawTitle: false, drawComposer: false, drawMeasureNumbers: false, 
+        autoResize: true, drawPartNames: false, drawPartAbbreviations: false
+    });
+
+    function renderStaff() {
+        if (musicXml.length > 50) {
+            osmd.load(musicXml).then(() => osmd.render());
+        }
+    }
+
+    // 4. Application State
+    let currentStep = 0;
+    let activeNotes = new Set();
+    const SHARP_TO_FLAT = { 'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb' };
+    const NOTE_NAMES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+    const logEl = document.getElementById('log');
+    const statusEl = document.getElementById('status');
+    const targetChordEl = document.getElementById('target-chord');
+    const progressEl = document.getElementById('progress-tracker');
+    const activeKeysEl = document.getElementById('active-keys-display');
+
+    function normalizeNote(noteStr) {
+        let clean = cleanArtifacts(noteStr).replace('-', 'b'); 
+        let nameMatch = clean.match(/[A-G][b#]?/);
+        let octaveMatch = clean.match(/\d+/);
+        if (!nameMatch || !octaveMatch) return clean;
+        let name = nameMatch[0], octave = octaveMatch[0];
+        if (SHARP_TO_FLAT[name]) name = SHARP_TO_FLAT[name];
+        return `${name}${octave}`;
+    }
+
+    function getMidiNoteName(midiNumber) {
+        const name = NOTE_NAMES_SHARP[midiNumber % 12];
+        const octave = Math.floor(midiNumber / 12) - 1;
+        return `${SHARP_TO_FLAT[name] || name}${octave}`;
+    }
+
+    function updateTrainerUI() {
+        if (currentStep >= progression.length) {
+            targetChordEl.innerText = "🎉 Hymn Complete!";
+            return;
+        }
+        const chord = progression[currentStep];
+        targetChordEl.innerText = chord.notes.map(n => cleanArtifacts(n).replace('-', 'b')).join(' ');
+        progressEl.innerText = `Chord ${currentStep + 1} of ${progression.length}`;
+    }
+
+    function checkChord() {
+        if (currentStep >= progression.length) return;
+        const targetNotes = progression[currentStep].notes.map(normalizeNote);
+        if (targetNotes.every(note => activeNotes.has(note))) {
+            currentStep++;
+            updateTrainerUI();
+        }
+    }
+
+    function logActivity(msg) {
+        const entry = document.createElement('div');
+        entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        logEl.prepend(entry);
+    }
+
+    // 5. MIDI Logic
+    function initMIDI() {
+        if (!navigator.requestMIDIAccess) {
+            statusEl.innerText = "BROWSER UNSUPPORTED";
+            statusEl.className = "error";
+            return;
+        }
+
+        navigator.requestMIDIAccess().then(midi => {
+            function updateDevices() {
+                const inputs = Array.from(midi.inputs.values());
+                if (inputs.length > 0) {
+                    statusEl.innerText = `MIDI READY: ${inputs[0].name}`;
+                    statusEl.className = "ready";
+                    
+                    inputs.forEach(input => {
+                        input.onmidimessage = (e) => {
+                            const [cmd, note, vel] = e.data;
+                            const name = getMidiNoteName(note);
+
+                            // Note On (144)
+                            if (cmd === 144 && vel > 0) { 
+                                playNote(note);
+                                activeNotes.add(name); 
+                                checkChord(); 
+                            } 
+                            // Note Off (128)
+                            else if (cmd === 128 || (cmd === 144 && vel === 0)) { 
+                                stopNote(note);
+                                activeNotes.delete(name); 
+                            }
+                            activeKeysEl.innerText = Array.from(activeNotes).join(', ') || '--';
+                        };
+                    });
+                } else {
+                    statusEl.innerText = "NO DEVICE DETECTED";
+                    statusEl.className = "no-device";
+                }
+            }
+
+            updateDevices();
+            midi.onstatechange = (e) => updateDevices();
+
+        }).catch(err => {
+            statusEl.innerText = "MIDI ACCESS DENIED";
+            statusEl.className = "error";
+        });
+    }
+
+    // Start
+    renderStaff();
+    updateTrainerUI();
+    initMIDI();
+
+    window.addEventListener('resize', () => osmd.render());
+</script>
+
+</body>
+</html>
