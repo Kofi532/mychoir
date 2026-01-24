@@ -10,13 +10,21 @@ import json
 import os
 from django.shortcuts import render
 from music21 import stream, note, chord, key, clef
+from django.conf import settings
 
 # Create your views here.
 
 
 def home(request):
     # Update this path to your actual JSON location
-    path = r"C:\Users\Asamoah\Desktop\kofi\aseda_a\adom\static\hymns.json"
+    # path = r"C:\Users\Asamoah\Desktop\kofi\aseda_a\adom\static\hymns.json"
+
+
+    # This builds the path dynamically based on your current environment
+    path = os.path.join(settings.BASE_DIR, 'static', 'hymns.json')
+
+    with open(path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     
     # 1. Get the hymn ID from the URL
     hymn_to_find = request.GET.get('hymn', 'mhb444') 
