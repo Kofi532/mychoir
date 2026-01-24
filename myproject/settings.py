@@ -23,10 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#0+c#@v(v*qkwfem8tumkr!+1_uujty*#_**j(njhwh+&%t)k='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False  # Set to False for the live version
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'kofi532.pythonanywhere.com', 
+    'www.fullchoir.com',  # Replace with your Namecheap domain
+    'fullchoir.com',      # The non-www version
+    'localhost', 
+    '127.0.0.1'
+]
 
 # Application definition
 

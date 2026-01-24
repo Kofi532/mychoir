@@ -219,6 +219,7 @@
 
 <div class="container">
     <header>
+        <meta name="description" content="Interactive hymn trainer for {{ hymn_title }}. Learn to play Ghanaian chorale music with a MIDI keyboard and real-time music staff feedback.">
         <div>
             <h1 style="font-size: 1rem; margin-bottom: 4px;">{{ hymn_title|upper }}</h1>
             <div class="hymn-meta">
@@ -255,6 +256,8 @@
     </div>
 </div>
 
+
+</script>
 <script>
     // 1. Audio Engine
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -430,7 +433,22 @@
     initMIDI();
 
     window.addEventListener('resize', () => osmd.render());
+
+
+
 </script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "{{ hymn_title }} Hymn Trainer",
+  "description": "Learn to play {{ hymn_title }} on the piano using MIDI feedback.",
+  "learningResourceType": "Interactive Tutorial"
+}
+</script>
+
 
 </body>
 </html>
