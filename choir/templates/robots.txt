@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /static/
+
+# Point Google to your dynamic sitemap
+Sitemap: https://www.fullchoir.com/sitemap.xml

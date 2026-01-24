@@ -220,7 +220,13 @@
 
 <div class="container">
     <header>
-        <meta name="description" content="Interactive hymn trainer for {{ hymn_title }}. Learn to play Ghanaian chorale music with a MIDI keyboard and real-time music staff feedback.">
+
+<title>Learn {{ hymn_title }} - FullChoir MIDI Trainer</title>
+    <meta name="description" content="Practice the hymn {{ hymn_title }} (Tune: {{ tune }}) in {{ key_signature }} using our interactive MIDI piano trainer.">
+    
+    <link rel="canonical" href="https://www.fullchoir.com/?hymn={{ hymn_title }}" />
+
+
         <div>
             <h1 style="font-size: 1rem; margin-bottom: 4px;">{{ hymn_title|upper }}</h1>
             <div class="hymn-meta">
