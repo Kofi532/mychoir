@@ -1,3 +1,5 @@
+<!-- 
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,6 +137,33 @@
             min-height: 300px;
         }
 
+        /* Playback Controls */
+        .playback-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-play {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-step { background: #444; color: white; }
+        .btn-all { background: var(--info); color: white; }
+        .btn-stop { background: var(--accent-off); color: white; }
+        .btn-play:hover { opacity: 0.8; transform: translateY(-1px); }
+        .btn-play:active { transform: translateY(0); }
+
         /* Audio Overlay */
         #audio-unlock {
             position: absolute;
@@ -220,13 +249,6 @@
 
 <div class="container">
     <header>
-
-<title>Learn {{ hymn_title }} - FullChoir MIDI Trainer</title>
-    <meta name="description" content="Practice the hymn {{ hymn_title }} (Tune: {{ tune }}) in {{ key_signature }} using our interactive MIDI piano trainer.">
-    
-    <link rel="canonical" href="https://www.fullchoir.com/?hymn={{ hymn_title }}" />
-
-
         <div>
             <h1 style="font-size: 1rem; margin-bottom: 4px;">{{ hymn_title|upper }}</h1>
             <div class="hymn-meta">
@@ -242,12 +264,18 @@
             <button onclick="enableAudio()">ENABLE AUDIO TO START</button>
         </div>
 
+        <div class="playback-controls">
+            <button class="btn-play btn-step" onclick="playCurrentStep()">▶ Play Step</button>
+            <button class="btn-play btn-all" onclick="playAll()">▶ Play All</button>
+            <button class="btn-play btn-stop" onclick="stopPlayback()">■ Stop</button>
+        </div>
+
         <div id="progress-tracker" style="font-size: 0.8rem; opacity: 0.7;">Step 1</div>
         <div class="chord-display" id="target-chord">Loading...</div>
         
         <div id="music-container"></div>
         
-        <div style="font-size: 0.7rem; opacity: 0.6;">Play the notes shown above on your MIDI controller</div>
+        <div style="font-size: 0.7rem; opacity: 0.6;">Play the notes shown above or use the buttons to listen</div>
     </div>
 
     <div class="display-grid">
@@ -263,12 +291,11 @@
     </div>
 </div>
 
-
-</script>
 <script>
     // 1. Audio Engine
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const activeOscillators = {};
+    let playbackTimeout = null;
 
     function enableAudio() {
         audioCtx.resume().then(() => {
@@ -277,36 +304,41 @@
         });
     }
 
-    function playNote(midiNumber) {
-        stopNote(midiNumber); // Safety cleanup
+    function playNote(midiNumber, duration = 0) {
+        stopNote(midiNumber); 
 
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
 
-        // Organ-like sound (Triangle wave is softer than Sawtooth)
         osc.type = 'triangle'; 
         osc.frequency.setValueAtTime(440 * Math.pow(2, (midiNumber - 69) / 12), audioCtx.currentTime);
 
         gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.02); // Attack
+        gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.02); 
         
         osc.connect(gain);
         gain.connect(audioCtx.destination);
 
         osc.start();
         activeOscillators[midiNumber] = { osc, gain };
+
+        if (duration > 0) {
+            setTimeout(() => stopNote(midiNumber), duration);
+        }
     }
 
     function stopNote(midiNumber) {
         if (activeOscillators[midiNumber]) {
             const { osc, gain } = activeOscillators[midiNumber];
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1); // Release
-            osc.stop(audioCtx.currentTime + 0.15);
+            try {
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch(e) {}
             delete activeOscillators[midiNumber];
         }
     }
 
-    // 2. Data Injection
+    // 2. Data Injection & Processing
     const musicXml = `{{ xml_data|escapejs }}`;
     const rawProgression = JSON.parse('{{ progression_json|safe }}');
     
@@ -320,7 +352,57 @@
         duration: item[1] 
     }));
 
-    // 3. OSMD Config
+    // 3. Helper: Note Name to MIDI
+    const NOTE_MAP = { 'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3, 'E': 4, 'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8, 'A': 9, 'A#': 10, 'Bb': 10, 'B': 11 };
+    
+    function noteNameToMidi(noteName) {
+        let clean = noteName.replace('-', 'b');
+        let nameMatch = clean.match(/[A-G][b#]?/);
+        let octaveMatch = clean.match(/\d+/);
+        if (!nameMatch || !octaveMatch) return null;
+        return (parseInt(octaveMatch[0]) + 1) * 12 + NOTE_MAP[nameMatch[0]];
+    }
+
+    // 4. Playback Logic
+    function stopPlayback() {
+        if (playbackTimeout) clearTimeout(playbackTimeout);
+        Object.keys(activeOscillators).forEach(midi => stopNote(parseInt(midi)));
+        logActivity("Playback Stopped");
+    }
+
+    function playChord(chordObj, durationMs = 800) {
+        chordObj.notes.forEach(note => {
+            const midi = noteNameToMidi(note);
+            if (midi) playNote(midi, durationMs);
+        });
+    }
+
+    function playCurrentStep() {
+        if (currentStep < progression.length) {
+            playChord(progression[currentStep]);
+            logActivity(`Playing step ${currentStep + 1}`);
+        }
+    }
+
+    function playAll(startIndex = 0) {
+        stopPlayback();
+        let index = startIndex;
+
+        function next() {
+            if (index >= progression.length) {
+                logActivity("Finished Play All");
+                return;
+            }
+            const chord = progression[index];
+            playChord(chord, 600);
+            index++;
+            playbackTimeout = setTimeout(next, 800);
+        }
+        logActivity("Playing Full Hymn...");
+        next();
+    }
+
+    // 5. OSMD & State
     const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-container", {
         drawTitle: false, drawComposer: false, drawMeasureNumbers: false, 
         autoResize: true, drawPartNames: false, drawPartAbbreviations: false
@@ -332,7 +414,6 @@
         }
     }
 
-    // 4. Application State
     let currentStep = 0;
     let activeNotes = new Set();
     const SHARP_TO_FLAT = { 'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb' };
@@ -385,7 +466,7 @@
         logEl.prepend(entry);
     }
 
-    // 5. MIDI Logic
+    // 6. MIDI Logic
     function initMIDI() {
         if (!navigator.requestMIDIAccess) {
             statusEl.innerText = "BROWSER UNSUPPORTED";
@@ -399,19 +480,15 @@
                 if (inputs.length > 0) {
                     statusEl.innerText = `MIDI READY: ${inputs[0].name}`;
                     statusEl.className = "ready";
-                    
                     inputs.forEach(input => {
                         input.onmidimessage = (e) => {
                             const [cmd, note, vel] = e.data;
                             const name = getMidiNoteName(note);
-
-                            // Note On (144)
                             if (cmd === 144 && vel > 0) { 
                                 playNote(note);
                                 activeNotes.add(name); 
                                 checkChord(); 
                             } 
-                            // Note Off (128)
                             else if (cmd === 128 || (cmd === 144 && vel === 0)) { 
                                 stopNote(note);
                                 activeNotes.delete(name); 
@@ -424,10 +501,8 @@
                     statusEl.className = "no-device";
                 }
             }
-
             updateDevices();
-            midi.onstatechange = (e) => updateDevices();
-
+            midi.onstatechange = updateDevices;
         }).catch(err => {
             statusEl.innerText = "MIDI ACCESS DENIED";
             statusEl.className = "error";
@@ -438,24 +513,403 @@
     renderStaff();
     updateTrainerUI();
     initMIDI();
-
     window.addEventListener('resize', () => osmd.render());
 
-
-
 </script>
+</body>
+</html> -->
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LearningResource",
-  "name": "{{ hymn_title }} Hymn Trainer",
-  "description": "Learn to play {{ hymn_title }} on the piano using MIDI feedback.",
-  "learningResourceType": "Interactive Tutorial"
-}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullChoir MIDI Trainer</title>
+    <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.1.0/build/opensheetmusicdisplay.min.js"></script>
+    <style>
+        :root {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --text: #e0e0e0;
+            --accent-on: #00e676;
+            --accent-off: #ff5252;
+            --info: #2196f3;
+            --highlight: #ffd740;
+            --sidebar-width: 300px;
+            --warning: #ffa000;
+        }
+
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* --- Responsive Layout --- */
+        @media (max-width: 850px) {
+            body { flex-direction: column; overflow-y: auto; height: auto; }
+            #hymn-sidebar { width: 100% !important; height: 400px; border-right: none; border-bottom: 1px solid #333; }
+            .container { height: auto !important; min-height: 100vh; }
+            .display-grid { grid-template-columns: 1fr !important; height: auto !important; }
+        }
+
+        /* --- Sidebar & Filter --- */
+        #hymn-sidebar {
+            width: var(--sidebar-width);
+            background: #181818;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--info);
+            border-bottom: 1px solid #333;
+        }
+
+        .search-box {
+            padding: 10px 15px;
+            background: #222;
+        }
+
+        #hymnFilter {
+            width: 100%;
+            padding: 8px;
+            background: #121212;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .hymn-list { overflow-y: auto; flex-grow: 1; }
+
+        .hymn-link {
+            display: block;
+            padding: 12px 20px;
+            color: #bbb;
+            text-decoration: none;
+            border-bottom: 1px solid #252525;
+            transition: 0.2s;
+        }
+
+        .hymn-link:hover { background: #252525; color: var(--highlight); }
+        .hymn-link.active { background: rgba(33, 150, 243, 0.1); color: var(--info); border-left: 4px solid var(--info); }
+        .hymn-link-title { font-weight: bold; display: block; text-transform: uppercase; font-size: 0.85rem; }
+        .hymn-link-meta { font-size: 0.7rem; opacity: 0.6; }
+
+        /* --- Main Content --- */
+        .container { flex-grow: 1; height: 100vh; padding: 15px; display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .mobile-warning {
+            background: rgba(255, 160, 0, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            max-width: 500px;
+        }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #333; }
+        .hymn-meta { display: flex; gap: 10px; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; background: rgba(33, 150, 243, 0.1); border: 1px solid rgba(33, 150, 243, 0.3); color: var(--info); text-transform: uppercase; }
+        
+        #status { font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .ready { background: #1b5e20; color: #a5d6a7; }
+        .waiting { background: #3e2723; color: #d7ccc8; }
+
+        .trainer-box {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            text-align: center;
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .playback-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .btn-play { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+        .btn-step { background: #444; color: white; }
+        .btn-all { background: var(--info); color: white; }
+        .btn-stop { background: var(--accent-off); color: white; }
+
+        #audio-unlock { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10; display: flex; justify-content: center; align-items: center; border-radius: 12px; }
+        #audio-unlock button { padding: 15px 30px; background: var(--info); border: none; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+        .chord-display { font-size: 1.6rem; font-weight: bold; color: var(--highlight); margin: 5px 0; }
+        #music-container { background: white; border-radius: 8px; flex-grow: 1; overflow-y: auto; margin: 10px 0; min-height: 200px; }
+
+        .display-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; height: 110px; }
+        .footer-card { background: #000; border-radius: 6px; padding: 8px; border: 1px solid #333; overflow: hidden; display: flex; flex-direction: column; }
+        h3 { margin: 0 0 5px 0; font-size: 0.7rem; color: var(--info); text-transform: uppercase; }
+        #active-keys-display { font-size: 1rem; color: var(--accent-on); font-family: 'JetBrains Mono', monospace; text-align: center; padding-top: 10px; }
+        #log { flex-grow: 1; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+        
+        .contact-footer { font-size: 0.75rem; text-align: center; opacity: 0.5; padding: 10px; }
+        .contact-footer a { color: var(--info); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<nav id="hymn-sidebar">
+    <div class="sidebar-header">FULLCHOIR LIBRARY</div>
+    <div class="search-box">
+        <input type="text" id="hymnFilter" placeholder="Filter by Title, Key, or Tune..." onkeyup="filterHymns()">
+    </div>
+    <div class="hymn-list" id="hymnList">
+        {% for hymn in all_hymns %}
+        <a href="?hymn={{ hymn.title }}" class="hymn-link {% if hymn.title == hymn_title %}active{% endif %}" 
+           data-title="{{ hymn.title|lower }}" data-tune="{{ hymn.Tune|lower }}" data-key="{{ hymn.Key|lower }}">
+            <span class="hymn-link-title">{{ hymn.title }}</span>
+            <span class="hymn-link-meta">{{ hymn.Tune|truncatechars:15 }} | {{ hymn.Key }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</nav>
+
+<div class="container">
+    {% if not hymn_title %}
+    <div class="welcome-screen">
+        <h1 style="color: var(--info); font-size: 2.5rem; margin-bottom: 10px;">Welcome to FullChoir</h1>
+        <p style="font-size: 1.1rem; max-width: 600px; opacity: 0.8;">
+            Your interactive MIDI companion for mastering hymns and anthems. 
+            Connect your piano to begin practicing with real-time feedback.
+        </p>
+        
+        <div style="margin-top: 30px; padding: 20px; border: 1px dashed #444; border-radius: 12px;">
+            <p style="color: var(--highlight); font-weight: bold; margin-bottom: 5px;">GET STARTED</p>
+            <p>Select an anthem or hymn from the <b>Library Sidebar</b> on the left.</p>
+        </div>
+
+        <div class="mobile-warning">
+            <b>💻 Desktop Recommended:</b> For the best experience, please use a computer. 
+            The interactive sheet music and MIDI features are optimized for larger screens.
+        </div>
+        
+        <div style="margin-top: auto;" class="contact-footer">
+            Enquiries: <a href="mailto:info@fullchoir.com">info@fullchoir.com</a>
+        </div>
+    </div>
+    {% else %}
+    <header>
+        <div>
+            <h1 style="font-size: 1rem; margin-bottom: 4px;">{{ hymn_title|upper }}</h1>
+            <div class="hymn-meta">
+                <span class="badge">Tune: {{ tune|default:"Unknown" }}</span>
+                <span class="badge">Key: {{ key_signature|default:"--" }}</span>
+            </div>
+        </div>
+        <div id="status" class="waiting">CONNECTING MIDI...</div>
+    </header>
+
+    <div class="trainer-box">
+        <div id="audio-unlock">
+            <button onclick="enableAudio()">CLICK TO ENABLE AUDIO & START</button>
+        </div>
+
+        <div class="playback-controls">
+            <button class="btn-play btn-step" onclick="playCurrentStep()">▶ Play Step</button>
+            <button class="btn-play btn-all" onclick="playAll()">▶ Play All</button>
+            <button class="btn-play btn-stop" onclick="stopPlayback()">■ Stop</button>
+        </div>
+
+        <div id="progress-tracker" style="font-size: 0.8rem; opacity: 0.7;">Step 1</div>
+        <div class="chord-display" id="target-chord">Loading...</div>
+        <div id="music-container"></div>
+    </div>
+
+    <div class="display-grid">
+        <div class="footer-card">
+            <h3>Keys Pressed</h3>
+            <div id="active-keys-display">--</div>
+        </div>
+        <div class="footer-card">
+            <h3>Activity Log</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+    <div class="contact-footer">
+        Questions? Contact <a href="mailto:info@fullchoir.com">info@fullchoir.com</a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    // --- Filter Function ---
+    function filterHymns() {
+        const input = document.getElementById('hymnFilter').value.toLowerCase();
+        const links = document.querySelectorAll('.hymn-link');
+        
+        links.forEach(link => {
+            const match = link.dataset.title.includes(input) || 
+                          link.dataset.tune.includes(input) || 
+                          link.dataset.key.includes(input);
+            link.style.display = match ? "block" : "none";
+        });
+    }
+
+    {% if hymn_title %}
+    // --- Audio & MIDI Logic ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const activeOscillators = {};
+    let playbackTimeout = null;
+
+    function enableAudio() {
+        audioCtx.resume().then(() => {
+            document.getElementById('audio-unlock').style.display = 'none';
+            logActivity("System Ready");
+        });
+    }
+
+    function playNote(midiNumber, duration = 0) {
+        stopNote(midiNumber); 
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle'; 
+        osc.frequency.setValueAtTime(440 * Math.pow(2, (midiNumber - 69) / 12), audioCtx.currentTime);
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.02); 
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        activeOscillators[midiNumber] = { osc, gain };
+        if (duration > 0) setTimeout(() => stopNote(midiNumber), duration);
+    }
+
+    function stopNote(midiNumber) {
+        if (activeOscillators[midiNumber]) {
+            const { osc, gain } = activeOscillators[midiNumber];
+            try {
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch(e) {}
+            delete activeOscillators[midiNumber];
+        }
+    }
+
+    const rawProgression = JSON.parse('{{ progression_json|safe }}');
+    const progression = rawProgression.map(item => ({ notes: item[0], duration: item[1] }));
+    const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-container", {
+        drawTitle: false, autoResize: true, drawPartNames: false
+    });
+
+    if (`{{ xml_data|escapejs }}`.length > 50) {
+        osmd.load(`{{ xml_data|escapejs }}`).then(() => osmd.render());
+    }
+
+    let currentStep = 0;
+    let activeNotes = new Set();
+    const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    const MAP_TO_MIDI = { 'C':0, 'C#':1, 'Db':1, 'D':2, 'D#':3, 'Eb':3, 'E':4, 'F':5, 'F#':6, 'Gb':6, 'G':7, 'G#':8, 'Ab':8, 'A':9, 'A#':10, 'Bb':10, 'B':11 };
+
+    function getMidiName(midi) {
+        return (NOTE_NAMES[midi % 12] + (Math.floor(midi / 12) - 1)).replace('#', 's').replace('b', 's');
+    }
+
+    function updateTrainerUI() {
+        if (currentStep >= progression.length) {
+            document.getElementById('target-chord').innerText = "🎉 COMPLETED!";
+            return;
+        }
+        document.getElementById('target-chord').innerText = progression[currentStep].notes.join(' ');
+        document.getElementById('progress-tracker').innerText = `Step ${currentStep + 1} of ${progression.length}`;
+    }
+
+    function stopPlayback() {
+        if (playbackTimeout) clearTimeout(playbackTimeout);
+        Object.keys(activeOscillators).forEach(m => stopNote(parseInt(m)));
+    }
+
+    function playCurrentStep() {
+        progression[currentStep].notes.forEach(n => {
+            let m = (parseInt(n.match(/\d/)[0]) + 1) * 12 + MAP_TO_MIDI[n.match(/[A-G][b#]?/)[0]];
+            playNote(m, 800);
+        });
+    }
+
+    function playAll() {
+        stopPlayback();
+        let i = 0;
+        function next() {
+            if (i >= progression.length) return;
+            progression[i].notes.forEach(n => {
+                let m = (parseInt(n.match(/\d/)[0]) + 1) * 12 + MAP_TO_MIDI[n.match(/[A-G][b#]?/)[0]];
+                playNote(m, 500);
+            });
+            i++;
+            playbackTimeout = setTimeout(next, 700);
+        }
+        next();
+    }
+
+    function initMIDI() {
+        navigator.requestMIDIAccess().then(midi => {
+            const status = document.getElementById('status');
+            const inputs = Array.from(midi.inputs.values());
+            if (inputs.length) {
+                status.innerText = "READY: " + inputs[0].name;
+                status.className = "ready";
+                inputs[0].onmidimessage = (e) => {
+                    const [cmd, note, vel] = e.data;
+                    const name = getMidiName(note).replace('s', '#');
+                    if (cmd === 144 && vel > 0) {
+                        playNote(note);
+                        activeNotes.add(name);
+                        // Simple check logic
+                        const target = progression[currentStep].notes.map(n => n.replace('-', 'b'));
+                        if (target.every(tn => Array.from(activeNotes).includes(tn))) {
+                            currentStep++; updateTrainerUI();
+                        }
+                    } else if (cmd === 128 || (cmd === 144 && vel === 0)) {
+                        stopNote(note);
+                        activeNotes.delete(name);
+                    }
+                    document.getElementById('active-keys-display').innerText = Array.from(activeNotes).join(', ') || '--';
+                };
+            }
+        });
+    }
+
+    function logActivity(msg) {
+        const entry = document.createElement('div');
+        entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        document.getElementById('log').prepend(entry);
+    }
+
+    updateTrainerUI();
+    initMIDI();
+    {% endif %}
 </script>
-
 
 </body>
 </html>
