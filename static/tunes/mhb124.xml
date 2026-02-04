@@ -1,0 +1,1879 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="2.0">
+	<work>
+		<work-title>John Goss, 1871</work-title>
+	</work>
+	<identification>
+		<creator type="poet">Humility</creator>
+		<encoding>
+			<software>PDFtoMusic Pro v1.6.5 Build 1B9E7 (c) Myriad - http://www.myriad-online.com</software>
+			<?PDFtoMusic Document type 0100- 00000000?>
+			<?Font corrections applied by user?>
+			<supports attribute="new-system" element="print" type="yes" value="yes"/>
+			<supports attribute="new-page" element="print" type="yes" value="yes"/>
+		</encoding>
+	</identification>
+	<defaults>
+		<scaling>
+			<millimeters>5.757322</millimeters>
+			<tenths>40</tenths>
+		</scaling>
+		<page-layout>
+			<page-height>1941.180</page-height>
+			<page-width>1500.003</page-width>
+			<page-margins type="both">
+				<left-margin>69.477</left-margin>
+				<right-margin>69.477</right-margin>
+				<top-margin>69.477</top-margin>
+				 <bottom-margin>69.477</bottom-margin>
+			</page-margins>
+		</page-layout>
+		<appearance>
+			<line-width type="staff">0.8823</line-width>
+			<line-width type="light barline">0.4585</line-width>
+		</appearance>
+	</defaults>
+	<credit page="1">
+		<credit-words  default-x="129.706" default-y="383.324" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">#</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="129.706" default-y="213.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">#</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="156.765" default-y="218.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">..</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="156.765" default-y="193.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">..</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="187.942" default-y="218.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="187.942" default-y="193.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="187.942" default-y="158.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">)</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="199.706" default-y="378.324" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">1</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="222.353" default-y="218.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="222.353" default-y="198.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="246.471" default-y="243.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="246.471" default-y="188.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="289.412" default-y="238.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="289.412" default-y="203.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="305.001" default-y="438.619" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">)</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="313.530" default-y="233.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="313.530" default-y="203.325" justify="left" valign="baseline" font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="370.001" default-y="1322.728" justify="left" valign="baseline" font-family="Times New Roman" font-size="24" font-weight="bold" font-style="normal">Humility</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="425.001" default-y="92.846" justify="left" valign="baseline" font-family="Times New Roman" font-size="8" font-weight="normal" font-style="normal">Public domain</credit-words>
+	</credit>
+	<credit page="1">
+		<credit-words  default-x="682.354" default-y="1248.929" justify="left" valign="baseline" font-family="Times New Roman" font-size="12" font-weight="normal" font-style="normal">John Goss, 1871</credit-words>
+	</credit>
+	<part-list>
+		<score-part id="P1">
+			<part-name></part-name>
+			<score-instrument id="P1-I1">
+				<instrument-name>Instrument 1</instrument-name>
+			</score-instrument>
+			<midi-instrument id="P1-I1">
+				<midi-channel>1</midi-channel>
+				<midi-bank>1</midi-bank>
+				<midi-program>53</midi-program>
+				<volume>50</volume>
+				<pan>-90</pan>
+				<elevation>0</elevation>
+				<?Myriad
+				<iddigit>5201</iddigit>
+				?>
+			</midi-instrument>
+		</score-part>
+		<score-part id="P2">
+			<part-name></part-name>
+			<score-instrument id="P2-I1">
+				<instrument-name>Instrument 2</instrument-name>
+			</score-instrument>
+			<midi-instrument id="P2-I1">
+				<midi-channel>2</midi-channel>
+				<midi-bank>1</midi-bank>
+				<midi-program>53</midi-program>
+				<volume>50</volume>
+				<pan>90</pan>
+				<elevation>0</elevation>
+				<?Myriad
+				<iddigit>5201</iddigit>
+				?>
+			</midi-instrument>
+		</score-part>
+	</part-list>
+	<part id="P1">
+		<!--==========================[1,1]=============================-->
+		<measure number="1" width="107">
+			<print new-page="yes">
+				<system-layout>
+					<system-margins>
+						<left-margin>18.612</left-margin>
+						<right-margin>547.795</right-margin>
+					</system-margins>
+					<top-system-distance>647.044</top-system-distance>
+				</system-layout>
+			</print>
+			<attributes>
+				<divisions>6720</divisions>
+				<key>
+					<fifths>1</fifths>
+					<mode>major</mode>
+				</key>
+				<time>
+					<beats>4</beats>
+					<beat-type>4</beat-type>
+				</time>
+				<clef number="1">
+					<sign>G</sign>
+					<line>2</line>
+				</clef>
+				<staff-details number="1" print-object="yes">
+					<staff-lines>5</staff-lines>
+					<staff-tuning line="1">
+						<tuning-step>A</tuning-step>
+						<tuning-octave>3</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="2">
+						<tuning-step>D</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="3">
+						<tuning-step>G</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="4">
+						<tuning-step>B</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="5">
+						<tuning-step>E</tuning-step>
+						<tuning-octave>5</tuning-octave>
+					</staff-tuning>
+					<staff-size>100.00</staff-size>
+				</staff-details>
+				<transpose>
+					<chromatic>5</chromatic>
+				</transpose>
+			</attributes>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="76.08" default-y="-50.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="78.84" default-y="-30.45">..</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,2]=============================-->
+		<measure number="2" width="127">
+			<attributes>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+				<measure-style>
+					<multiple-rest>1</multiple-rest>
+				</measure-style>
+			</attributes>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="21.24" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="54.36" default-y="-50.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="54.36" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="79.08" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="79.08" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,3]=============================-->
+		<measure number="3" width="186">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">..</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-85.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2520</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>5460</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+				<lyric number="1" justify="right" default-y="-55.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">
+.. . . .</text>
+					<extend/>
+				</lyric>
+			</note>
+		</measure>
+		<!--==========================[1,4]=============================-->
+		<measure number="4" width="146">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="20.52" default-y="-45.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="20.52" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="45.24" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="69.96" default-y="-30.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="69.96" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="94.68" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,5]=============================-->
+		<measure number="5" width="226">
+			<forward>
+				<duration>420</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">..</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">..</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2100</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">..</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>2520</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+				<lyric number="2" justify="right" default-y="-140.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. . . .</text>
+					<extend/>
+				</lyric>
+				<lyric number="3" justify="right" default-y="-150.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">#. .</text>
+					<extend/>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>4</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[1,6]=============================-->
+		<measure number="6" width="218">
+			<print new-system="yes">
+				<system-layout>
+					<system-margins>
+						<left-margin>18.612</left-margin>
+						<right-margin>547.795</right-margin>
+					</system-margins>
+					<system-distance>80.294</system-distance>
+				</system-layout>
+			</print>
+			<attributes>
+				<key>
+					<fifths>0</fifths>
+					<mode>major</mode>
+				</key>
+				<clef number="1">
+					<sign>TAB</sign>
+					<line>5</line>
+				</clef>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+			</attributes>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-0.45">#</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">..</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-90.45">)</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>5880</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>6</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+				<lyric number="1" justify="left" default-y="-55.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+					<extend/>
+				</lyric>
+			</note>
+		</measure>
+		<!--==========================[1,7]=============================-->
+		<measure number="7" width="167">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">..</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2100</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>2940</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+				<lyric number="1" justify="center" default-y="-55.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. . . .</text>
+					<extend/>
+				</lyric>
+				<lyric number="2" justify="right" default-y="-65.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</text>
+					<extend/>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[1,8]=============================-->
+		<measure number="8" width="130">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="17.88" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="39.96" default-y="-50.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="39.96" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="62.04" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="62.04" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="84.12" default-y="-40.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="84.12" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,9]=============================-->
+		<measure number="9" width="124">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.45">..</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">..</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2940</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>3780</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>G</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>4</string>
+					</technical>
+				</notations>
+				<lyric number="1" justify="right" default-y="-55.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+					<extend/>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>4</string>
+					</technical>
+				</notations>
+			</note>
+			<barline location="right">
+				<bar-style>light-light</bar-style>
+			</barline>
+		</measure>
+		<!--==========================[1,10]=============================-->
+		<measure number="10" width="153">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="30.60" default-y="-30.45">.. . . .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="30.60" default-y="-10.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="58.44" default-y="-65.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="80.52" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="102.60" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,11]=============================-->
+		<measure number="11" width="158">
+			<print new-system="yes">
+				<system-layout>
+					<system-margins>
+						<left-margin>18.612</left-margin>
+						<right-margin>547.795</right-margin>
+					</system-margins>
+					<system-distance>80.294</system-distance>
+				</system-layout>
+			</print>
+			<attributes>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+			</attributes>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-0.45">#</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>5040</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>6</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+				<lyric number="1" justify="right" default-y="-150.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+					<extend/>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[1,12]=============================-->
+		<measure number="12" width="142">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-45.45">..</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-10.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="47.64" default-y="-65.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="47.64" default-y="-30.45">. . .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="70.68" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="93.72" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,13]=============================-->
+		<measure number="13" width="135">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>2520</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+				<lyric number="2" justify="right" default-y="-140.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+				</lyric>
+				<lyric number="3" justify="right" default-y="-150.45">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[1,14]=============================-->
+		<measure number="14" width="121">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="16.08" default-y="-50.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-30.45">..</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="47.64" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="79.08" default-y="-50.45">#.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="89.88" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,15]=============================-->
+		<measure number="15" width="44">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="13.80" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="13.80" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[1,16]=============================-->
+		<measure number="16" width="190">
+			<forward>
+				<duration>420</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">...</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-50.45">#.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>420</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-85.45">)</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-80.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-45.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>3360</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+				<lyric number="1" justify="right" default-y="-55.45">
+					<syllabic>begin</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.. .</text>
+				</lyric>
+				<lyric number="3" justify="right" default-y="-155.45">
+					<syllabic>end</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</text>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+	</part>
+	<part id="P2">
+		<!--==========================[2,1]=============================-->
+		<measure number="1" width="107">
+			<print new-page="yes">
+				<staff-layout number="1">
+					<staff-distance>120.000</staff-distance>
+				</staff-layout>
+			</print>
+			<attributes>
+				<divisions>6720</divisions>
+				<clef number="1">
+					<sign>TAB</sign>
+					<line>5</line>
+				</clef>
+				<staff-details number="1" print-object="yes">
+					<staff-lines>5</staff-lines>
+					<staff-tuning line="1">
+						<tuning-step>A</tuning-step>
+						<tuning-octave>3</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="2">
+						<tuning-step>D</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="3">
+						<tuning-step>G</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="4">
+						<tuning-step>B</tuning-step>
+						<tuning-octave>4</tuning-octave>
+					</staff-tuning>
+					<staff-tuning line="5">
+						<tuning-step>E</tuning-step>
+						<tuning-octave>5</tuning-octave>
+					</staff-tuning>
+					<staff-size>100.00</staff-size>
+				</staff-details>
+			</attributes>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="33.96" default-y="-10.45">#</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="78.84" default-y="-40.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="78.84" default-y="-5.45">.. .</words>
+				</direction-type>
+			</direction>
+			<attributes>
+				<time>
+					<beats>4</beats>
+					<beat-type>4</beat-type>
+				</time>
+			</attributes>
+		</measure>
+		<!--==========================[2,2]=============================-->
+		<measure number="2" width="127">
+			<attributes>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+				<measure-style>
+					<multiple-rest>1</multiple-rest>
+				</measure-style>
+			</attributes>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="54.36" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="54.36" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="79.08" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="79.08" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,3]=============================-->
+		<measure number="3" width="186">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2520</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-0.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>5460</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[2,4]=============================-->
+		<measure number="4" width="146">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="20.52" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="42.48" default-y="10.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="45.24" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="69.96" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="94.68" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,5]=============================-->
+		<measure number="5" width="226">
+			<forward>
+				<duration>420</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2520</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">h .</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,6]=============================-->
+		<measure number="6" width="218">
+			<print new-system="yes">
+				<staff-layout number="1">
+					<staff-distance>120.000</staff-distance>
+				</staff-layout>
+			</print>
+			<attributes>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+			</attributes>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-10.45">#</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">. .</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2100</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,7]=============================-->
+		<measure number="7" width="167">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2520</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-0.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,8]=============================-->
+		<measure number="8" width="130">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="17.88" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="17.88" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="39.96" default-y="-20.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="39.96" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="62.04" default-y="-5.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="84.12" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,9]=============================-->
+		<measure number="9" width="124">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-10.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>2520</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>D</step>
+					<octave>4</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>5</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>2</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[2,10]=============================-->
+		<measure number="10" width="153">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="30.60" default-y="-5.45">.. . . .</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="30.60" default-y="4.55">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="58.44" default-y="-40.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="80.52" default-y="19.55">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="102.60" default-y="14.55">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,11]=============================-->
+		<measure number="11" width="158">
+			<print new-system="yes">
+				<staff-layout number="1">
+					<staff-distance>120.000</staff-distance>
+				</staff-layout>
+			</print>
+			<attributes>
+				<staff-details number="1" print-object="yes">
+				</staff-details>
+			</attributes>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="33.96" default-y="-10.45"># .</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="56.88" default-y="10.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="82.92" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>6720</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-165.75">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-160.75">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>6720</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>C</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>3</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+				<lyric number="1" justify="right" default-y="-130.75">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">
+.. .</text>
+				</lyric>
+				<lyric number="2" justify="right" default-y="-140.75">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">.</text>
+				</lyric>
+				<lyric number="3" justify="left" default-y="-150.75">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>1</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[2,12]=============================-->
+		<measure number="12" width="142">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-30.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-5.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="above">
+				<direction-type>
+					<words font-family="MSTT31c37c00" font-size="10" font-weight="normal" font-style="normal" relative-x="67.92" default-y="20.00"></words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="70.68" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="93.72" default-y="-40.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,13]=============================-->
+		<measure number="13" width="135">
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1680</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>3780</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>C</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>3</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+				<lyric number="2" justify="right" default-y="-140.75">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+				</lyric>
+				<lyric number="3" justify="right" default-y="-155.75">
+					<syllabic>single</syllabic>
+					<text font-family="Arial" font-size="10" font-weight="normal" font-style="normal">. .</text>
+				</lyric>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>1</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+		<!--==========================[2,14]=============================-->
+		<measure number="14" width="121">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-15.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="18.84" default-y="-5.45">.. .</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="47.64" default-y="-50.45">)</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="89.88" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="89.88" default-y="-15.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,15]=============================-->
+		<measure number="15" width="45">
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="13.80" default-y="-30.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="13.80" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+		</measure>
+		<!--==========================[2,16]=============================-->
+		<measure number="16" width="190">
+			<forward>
+				<duration>420</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-40.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>2100</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-35.45">.</words>
+				</direction-type>
+			</direction>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-0.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-5.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>1260</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-20.45">.</words>
+				</direction-type>
+			</direction>
+			<forward>
+				<duration>840</duration>
+			</forward>
+			<direction placement="below">
+				<direction-type>
+					<words font-family="Arial" font-size="10" font-weight="normal" font-style="normal" relative-x="0.00" default-y="-25.45">.</words>
+				</direction-type>
+			</direction>
+			<backup>
+				<duration>5460</duration>
+			</backup>
+			<note>
+				<pitch>
+					<step>E</step>
+					<octave>5</octave>
+				</pitch>
+				<duration>6720</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<stem>none</stem>
+				<notations>
+					<technical>
+						<fret>5</fret>
+						<string>2</string>
+						<fingering placement="above" relative-x="0.00" relative-y="9.58">5</fingering>
+					</technical>
+				</notations>
+			</note>
+		</measure>
+	</part>
+</score-partwise>
