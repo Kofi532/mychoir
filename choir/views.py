@@ -824,7 +824,7 @@ from django.shortcuts import render
 from django.contrib.staticfiles import finders # Import this to find static files
 from music21 import converter, chord
 
-def home(request):
+def homez(request):
     # 1. Update paths to point to your static folder
     # Assuming your files are in: static/tunes/
     json_static_path = "hymns_cleaned.json" # Relative path within static
@@ -880,4 +880,81 @@ def home(request):
         'timeline_list': current_timeline,
         'selected_song': selected_meta,
         'xml_data': xml_content # This sends the notation data to the HTML
+    })
+
+
+
+
+
+import os
+import json
+from django.shortcuts import render
+from django.conf import settings
+from music21 import converter, chord
+
+def home(request):
+    # 1. Use settings.BASE_DIR to find files on the server disk
+    # This assumes your files are inside your project's 'static' folder
+    static_root = os.path.join(settings.BASE_DIR, 'static')
+    json_full_path = os.path.join(static_root, 'hymns_cleaned.json')
+    
+    sidebar_songs = []
+    
+    # 2. Load the JSON data for the sidebar
+    if os.path.exists(json_full_path):
+        try:
+            with open(json_full_path, 'r', encoding='utf-8') as f:
+                sidebar_songs = json.load(f)
+        except Exception as e:
+            print(f"Error reading JSON file: {e}")
+    else:
+        # This will show up in your PythonAnywhere server logs
+        print(f"File not found: {json_full_path}")
+
+    selected_song_id = request.GET.get('song')
+    current_timeline = []
+    selected_meta = None
+    xml_content = "" 
+
+    if selected_song_id:
+        # 3. Construct path for the specific XML file
+        xml_full_path = os.path.join(static_root, 'tunes', f"{selected_song_id}.xml")
+        
+        if os.path.exists(xml_full_path):
+            # Read raw XML for OpenSheetMusicDisplay (OSMD)
+            try:
+                with open(xml_full_path, 'r', encoding='utf-8') as f:
+                    xml_content = f.read()
+
+                # 4. Use music21 to parse for the player logic
+                score = converter.parse(xml_full_path)
+                chorded = score.chordify()
+                
+                tempo = 115 
+                multiplier = 60 / tempo
+                
+                for i, element in enumerate(chorded.recurse().getElementsByClass(['Chord', 'Rest'])):
+                    event = {
+                        "id": i,
+                        "measure": element.measureNumber,
+                        "duration": element.duration.quarterLength * multiplier,
+                        "pitches": [p.nameWithOctave for p in element.pitches] if isinstance(element, chord.Chord) else [],
+                        "display_name": ", ".join([p.nameWithOctave for p in element.pitches]) if isinstance(element, chord.Chord) else "Rest (Silence)"
+                    }
+                    current_timeline.append(event)
+                
+                # Find metadata in the loaded sidebar_songs list
+                selected_meta = next((s for s in sidebar_songs if s.get('title') == selected_song_id), None)
+                
+            except Exception as e:
+                print(f"Error parsing music21 or reading XML: {e}")
+        else:
+            print(f"XML file not found: {xml_full_path}")
+
+    return render(request, 'choir/home.html', {
+        'songs': sidebar_songs,
+        'timeline_json': json.dumps(current_timeline),
+        'timeline_list': current_timeline,
+        'selected_song': selected_meta,
+        'xml_data': xml_content
     })
