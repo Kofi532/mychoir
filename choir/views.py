@@ -827,7 +827,7 @@ from music21 import converter, chord
 def home(request):
     # 1. Update paths to point to your static folder
     # Assuming your files are in: static/tunes/
-    json_static_path = "hymns.json" # Relative path within static
+    json_static_path = "hymns_cleaned.json" # Relative path within static
     
     # Use finders to get the absolute path of the JSON
     json_full_path = finders.find(json_static_path)
