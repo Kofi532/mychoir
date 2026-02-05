@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,14 +123,24 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
+
+# This is the "Door" that lets Django see your Desktop folder
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"), # Standard project static
+    r"C:\Users\Asamoah\Desktop\kofi\choir\static", # Your specific folder
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 # settings.py
 # SECURE_SSL_REDIRECT = False
 # SESSION_COOKIE_SECURE = False
 # CSRF_COOKIE_SECURE = False
+
+

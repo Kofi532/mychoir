@@ -1,588 +1,44 @@
-<!-- <!DOCTYPE html>
+
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- <link rel="icon" type="image/png" href="{% static 'treble_sign.png' %}"> -->
+    <link rel="icon" type="image/png" href="/static/treble_sign.png">
     <meta charset="UTF-8">
-    <title>Choir Library - Audio Recovery Mode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.8.1/build/opensheetmusicdisplay.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/osmd-audio-player@1.1.0/dist/index.js"></script>
-
-    <style>
-        :root { --sidebar-width: 340px; --primary-blue: #1a73e8; --bg-light: #f8f9fa; }
-        body { margin: 0; display: flex; height: 100vh; font-family: 'Segoe UI', sans-serif; background: var(--bg-light); overflow: hidden; }
-
-        #sidebar { width: var(--sidebar-width); background: white; border-right: 1px solid #ddd; display: flex; flex-direction: column; }
-        #sidebar-header { padding: 20px; background: var(--primary-blue); color: white; }
-        #hymnSearch { width: 100%; padding: 10px; border: none; border-radius: 4px; background: rgba(255, 255, 255, 0.2); color: white; outline: none; }
-
-        #hymn-list { flex-grow: 1; overflow-y: auto; }
-        .hymn-item { padding: 15px 20px; text-decoration: none; color: #555; display: block; border-bottom: 1px solid #eee; }
-        .hymn-item.active { background: #e8f0fe; border-left: 5px solid var(--primary-blue); font-weight: bold; }
-
-        #playback-bar {
-            position: sticky; top: 0; width: 100%; background: white; 
-            padding: 15px; border-bottom: 1px solid #ddd; display: flex; 
-            gap: 15px; align-items: center; justify-content: center; z-index: 100;
-        }
-        .btn { padding: 10px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; color: white; }
-        .btn-play { background: #34a853; }
-        .btn-stop { background: #ea4335; }
-        
-        #main-content { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; }
-        #notation-container { padding: 40px; display: flex; flex-direction: column; align-items: center; }
-        .notation-card { background: white; width: 100%; max-width: 950px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .hidden { display: none !important; }
-    </style>
-</head>
-<body>
-
-    <nav id="sidebar">
-        <div id="sidebar-header">
-            <h2>Choir Library</h2>
-            <input type="text" id="hymnSearch" placeholder="Search..." onkeyup="filterHymns()">
-        </div>
-        <div id="hymn-list">
-            {% for hymn in all_hymns %}
-                <a href="?hymn={{ hymn.filename }}" class="hymn-item {% if selected_hymn_file == hymn.filename %}active{% endif %}"
-                   data-searchable="{{ hymn.display_name|lower }}">
-                   <div style="color:#222;">{{ hymn.display_name }}</div>
-                   <small style="color:#888;">{{ hymn.tune }} | {{ hymn.key }}</small>
-                </a>
-            {% endfor %}
-        </div>
-    </nav>
-
-    <main id="main-content">
-        {% if xml_data_b64 %}
-            <div id="playback-bar">
-                <button id="btn-play" class="btn btn-play" onclick="handlePlayToggle()">▶ Load & Play</button>
-                <button id="btn-stop" class="btn btn-stop" onclick="handleStop()">■ Stop</button>
-                <span id="audio-status" style="margin-left:15px; font-size: 0.85rem; color: #666;">Audio: Not Initialized</span>
-            </div>
-
-            <div id="notation-container">
-                <h1 style="text-transform: uppercase; margin-bottom: 20px;">{{ hymn_title }}</h1>
-                <div class="notation-card"><div id="osmd-container"></div></div>
-            </div>
-        {% else %}
-            <div style="margin: auto; color: #bbb;">Select a hymn to start.</div>
-        {% endif %}
-    </main>
-
-    <script>
-        let osmd;
-        let audioPlayer;
-        const b64Data = "{{ xml_data_b64 }}";
-
-        function filterHymns() {
-            const query = document.getElementById('hymnSearch').value.toLowerCase();
-            const items = document.getElementsByClassName('hymn-item');
-            for (let item of items) {
-                item.classList.toggle('hidden', !item.getAttribute('data-searchable').includes(query));
-            }
-        }
-
-        async function init() {
-            if (!b64Data) return;
-            const status = document.getElementById('audio-status');
-            
-            try {
-                let xml = atob(b64Data);
-                // 1. CLEAN EVERYTHING: Tempo, Metronome, and INSTRUMENT names
-                xml = xml.replace(/<metronome.*?>[\s\S]*?<\/metronome>/g, '');
-                xml = xml.replace(/tempo=".*?"/g, '');
-                // Replace any specific instrument names with 'Acoustic Grand Piano'
-                xml = xml.replace(/<instrument-name>.*?<\/instrument-name>/g, '<instrument-name>Acoustic Grand Piano</instrument-name>');
-
-                osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmd-container");
-                osmd.setOptions({ 
-                    backend: "svg", 
-                    drawTitle: false, 
-                    followCursor: true,
-                });
-
-                await osmd.load(xml);
-                osmd.render();
-                
-                // Pre-init player
-                audioPlayer = new OsmdAudioPlayer.default();
-                status.innerText = "Click 'Load & Play' to begin";
-            } catch (e) {
-                console.error(e);
-                status.innerText = "Notation Error.";
-            }
-        }
-
-        async function handlePlayToggle() {
-            const status = document.getElementById('audio-status');
-            const playBtn = document.getElementById('btn-play');
-
-            try {
-                // Ensure AudioContext is active
-                if (audioPlayer.context.state === 'suspended') {
-                    await audioPlayer.context.resume();
-                }
-
-                // If stopped, we must load the score
-                if (audioPlayer.state === 'STOPPED') {
-                    status.innerText = "Synthesizing... Please wait";
-                    playBtn.disabled = true;
-                    
-                    // We load the score and tell the player exactly which soundfont to use
-                    await audioPlayer.loadScore(osmd);
-                    
-                    playBtn.disabled = false;
-                    status.innerText = "Playing...";
-                    playBtn.innerText = "⏸ Pause";
-                    await audioPlayer.play();
-                    return;
-                }
-
-                if (audioPlayer.state === 'PLAYING') {
-                    audioPlayer.pause();
-                    playBtn.innerText = "▶ Resume";
-                    status.innerText = "Paused";
-                } else {
-                    status.innerText = "Playing...";
-                    playBtn.innerText = "⏸ Pause";
-                    await audioPlayer.play();
-                }
-            } catch (e) {
-                console.error("Audio Load Error:", e);
-                status.innerText = "Audio Failed. Checking alternate route...";
-                // Fallback attempt
-                try {
-                   await audioPlayer.stop();
-                   await audioPlayer.loadScore(osmd);
-                   await audioPlayer.play();
-                } catch(err2) {
-                   alert("The browser couldn't load the instrument sounds. Please check your internet connection and ensure the file is a standard MusicXML.");
-                }
-            }
-        }
-
-        function handleStop() {
-            if (audioPlayer) {
-                audioPlayer.stop();
-                document.getElementById('btn-play').innerText = "▶ Load & Play";
-                document.getElementById('audio-status').innerText = "Stopped";
-            }
-        }
-
-        window.onload = init;
+    {% if selected_song %}
+    <title>{{ selected_song.title|title }} - Lyrics, Sheet Music & Key of {{ selected_song.Key }}</title>
+    <meta name="description" content="View lyrics, interactive sheet music, and note data for the hymn '{{ selected_song.title }}'. Key: {{ selected_song.Key }}. Play chords and explore chorale arrangements.">
+    <meta name="keywords" content="{{ selected_song.title }}, hymn lyrics, chorale music, sheet music, {{ selected_song.Key }} hymn">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicComposition",
+      "name": "{{ selected_song.title }}",
+      "musicalKey": "{{ selected_song.Key }}",
+      "lyrics": {
+        "@type": "CreativeWork",
+        "text": "{{ selected_song.content|escapejs }}"
+      }
+    }
     </script>
-</body>
-</html> -->
+    {% else %}
+    <title>Hymn Library & Range Player | Interactive Chorale Database</title>
+    <meta name="description" content="A comprehensive library of chorale music with interactive sheet music rendering, playback features, and lyrical analysis.">
+    {% endif %}
 
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MusicXML Chord Range Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-8">
-
-    <div class="max-auto max-w-4xl bg-white rounded-xl shadow-lg p-6">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">Mainzer, LM - Chord Selector</h1>
-        <p class="text-gray-600 mb-6">Select a range of chords from the list below and press play.</p>
-
-        <div class="flex gap-4 mb-6 items-end">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Start Index</label>
-                <input type="number" id="start-idx" value="0" min="0" class="mt-1 block w-24 rounded-md border-gray-300 shadow-sm border p-2">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">End Index</label>
-                <input type="number" id="end-idx" value="10" min="0" class="mt-1 block w-24 rounded-md border-gray-300 shadow-sm border p-2">
-            </div>
-            <button id="play-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
-                Play Selected Range
-            </button>
-        </div>
-
-        <div class="overflow-y-auto max-h-96 border rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Meas.</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Chords/Pitches</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dur (s)</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200" id="chord-table-body">
-                    {% for item in timeline_list %}
-                    <tr class="hover:bg-blue-50 cursor-pointer" onclick="updateRange({{ forloop.counter0 }})">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ forloop.counter0 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{{ item.measure }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">{{ item.display_name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ item.duration|stringformat:".2f" }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        const songData = {{ timeline_json|safe }};
-        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-
-        function updateRange(id) {
-            // Simple logic to set start or end based on click
-            const startInput = document.getElementById('start-idx');
-            const endInput = document.getElementById('end-idx');
-            
-            if (parseInt(startInput.value) === id) {
-                 // reset if clicked twice
-            } else if (id > parseInt(startInput.value)) {
-                endInput.value = id;
-            } else {
-                startInput.value = id;
-            }
-        }
-
-        document.getElementById('play-btn').addEventListener('click', async () => {
-            await Tone.start();
-            Tone.Transport.stop();
-            Tone.Transport.cancel(); // Clear previous schedules
-
-            const startIdx = parseInt(document.getElementById('start-idx').value);
-            const endIdx = parseInt(document.getElementById('end-idx').value);
-
-            let scheduleTime = 0;
-
-            // Only loop through the selected slice of the array
-            const selectedRange = songData.slice(startIdx, endIdx + 1);
-
-            selectedRange.forEach(event => {
-                if (event.pitches.length > 0) {
-                    Tone.Transport.schedule((time) => {
-                        synth.triggerAttackRelease(event.pitches, event.duration, time);
-                    }, scheduleTime);
-                }
-                // Rests still take up time, so we increment the schedule clock
-                scheduleTime += event.duration;
-            });
-
-            Tone.Transport.start();
-        });
-    </script>
-</body>
-</html> -->
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Music Library Note Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex h-screen overflow-hidden">
-
-    <div class="w-80 bg-slate-900 text-white flex flex-col shadow-2xl">
-        <div class="p-6 border-b border-slate-700 bg-slate-800">
-            <h2 class="text-xl font-bold">Music Library</h2>
-            <p class="text-xs text-slate-400">Select song to load notes</p>
-        </div>
-        <div class="flex-1 overflow-y-auto p-4 space-y-2">
-            {% for song in songs %}
-            <a href="?song={{ song.title }}" 
-               class="block p-4 rounded-lg border border-transparent transition {% if selected_song.title == song.title %}bg-blue-600 border-blue-400{% else %}hover:bg-slate-800{% endif %}">
-                <div class="flex justify-between">
-                    <span class="font-bold text-sm">{{ song.title }}</span>
-                    <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded">{{ song.Key }}</span>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-
-    <main class="flex-1 overflow-y-auto p-10">
-        {% if selected_song %}
-            <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8">
-                <div class="mb-6">
-                    <h1 class="text-3xl font-bold text-gray-800">{{ selected_song.title }}</h1>
-                    <p class="text-gray-500 italic">Musical Key: {{ selected_song.Key }}</p>
-                </div>
-
-                <div class="flex flex-wrap gap-4 mb-8 items-end bg-blue-50 p-6 rounded-xl border border-blue-100">
-                    <div class="flex-1 min-w-[120px]">
-                        <label class="block text-xs font-bold text-blue-600 uppercase mb-1">Start Index</label>
-                        <input type="number" id="start-idx" value="0" class="w-full rounded-md border-gray-300 shadow-sm border p-2 text-lg focus:ring-2 focus:ring-blue-400">
-                    </div>
-                    <div class="flex-1 min-w-[120px]">
-                        <label class="block text-xs font-bold text-blue-600 uppercase mb-1">End Index</label>
-                        <input type="number" id="end-idx" value="10" class="w-full rounded-md border-gray-300 shadow-sm border p-2 text-lg focus:ring-2 focus:ring-blue-400">
-                    </div>
-                    <button id="play-btn" class="flex-[2] min-w-[200px] bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform active:scale-95 flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5v13L16 10l-11.5-6.5z"/></svg>
-                        Play Selection
-                    </button>
-                </div>
-
-                <div class="overflow-y-auto max-h-[550px] border border-gray-200 rounded-xl">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100 sticky top-0 z-10">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">ID</th>
-                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Meas.</th>
-                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Note Names (Pitches)</th>
-                                <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Duration</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            {% for item in timeline_list %}
-                            <tr class="hover:bg-blue-50 cursor-pointer transition group" onclick="updateRange({{ forloop.counter0 }})">
-                                <td class="px-6 py-4 text-sm text-gray-400 font-mono">{{ forloop.counter0 }}</td>
-                                <td class="px-6 py-4 text-sm font-bold text-gray-900">Bar {{ item.measure }}</td>
-                                <td class="px-6 py-4 text-sm text-blue-700 font-bold group-hover:text-blue-900">
-                                    {{ item.display_name }}
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">{{ item.duration|stringformat:".2f" }}s</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% else %}
-            <div class="h-full flex flex-col items-center justify-center text-gray-400">
-                <div class="bg-white p-10 rounded-full shadow-inner mb-6">
-                    <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
-                </div>
-                <h2 class="text-2xl font-semibold">Ready to Orchestrate</h2>
-                <p>Choose a song from the sidebar to begin note analysis.</p>
-            </div>
-        {% endif %}
-    </main>
-
-    <script>
-        const songData = {{ timeline_json|safe }};
-        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-
-        function updateRange(id) {
-            const startInput = document.getElementById('start-idx');
-            const endInput = document.getElementById('end-idx');
-            let start = parseInt(startInput.value);
-            
-            if (id <= start) {
-                startInput.value = id;
-            } else {
-                endInput.value = id;
-            }
-        }
-
-        document.getElementById('play-btn')?.addEventListener('click', async () => {
-            await Tone.start();
-            Tone.Transport.stop();
-            Tone.Transport.cancel();
-
-            const startIdx = parseInt(document.getElementById('start-idx').value);
-            const endIdx = parseInt(document.getElementById('end-idx').value);
-            
-            if (isNaN(startIdx) || isNaN(endIdx) || startIdx > endIdx) return;
-
-            const selectedRange = songData.slice(startIdx, endIdx + 1);
-            let scheduleTime = 0;
-
-            selectedRange.forEach(event => {
-                if (event.pitches.length > 0) {
-                    Tone.Transport.schedule((time) => {
-                        synth.triggerAttackRelease(event.pitches, event.duration, time);
-                    }, scheduleTime);
-                }
-                scheduleTime += event.duration;
-            });
-
-            Tone.Transport.start();
-        });
-    </script>
-</body>
-</html> -->
-
-
-
-
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hymn Library & Range Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex h-screen overflow-hidden">
-
-    <div class="w-96 bg-slate-900 text-white flex flex-col shadow-2xl border-r border-slate-700">
-        <div class="p-6 border-b border-slate-700 bg-slate-800">
-            <h2 class="text-xl font-bold mb-4">Hymn Library</h2>
-            
-            <div class="relative">
-                <input type="text" id="sidebar-filter" 
-                       placeholder="Search by title, key, or lyrics..." 
-                       class="w-full bg-slate-700 border border-slate-600 rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                <svg class="w-4 h-4 absolute right-3 top-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </div>
-        </div>
-
-        <div class="flex-1 overflow-y-auto p-4 space-y-2" id="song-list-container">
-            {% for song in songs %}
-            <a href="?song={{ song.title }}" 
-               data-searchable="{{ song.title }} {{ song.Key }} {{ song.content }}"
-               class="song-item block p-4 rounded-lg border border-transparent transition {% if selected_song.title == song.title %}bg-blue-600 border-blue-400 shadow-lg{% else %}hover:bg-slate-800 hover:border-slate-700{% endif %}">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-bold text-sm tracking-wide">{{ song.title|upper }}</span>
-                    <span class="text-[10px] bg-slate-700 px-2 py-0.5 rounded text-blue-300 font-mono">{{ song.Key }}</span>
-                </div>
-                <p class="text-xs text-slate-400 leading-relaxed overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                    {{ song.content }}
-                </p>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-
-    <main class="flex-1 overflow-y-auto p-10 bg-slate-50">
-        {% if selected_song %}
-            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <div class="mb-8">
-                    <h1 class="text-4xl font-black text-slate-800">{{ selected_song.title|upper }}</h1>
-                    <div class="flex gap-4 mt-2">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">Key: {{ selected_song.Key }}</span>
-                        <span class="text-slate-400 italic text-sm py-1">MusicXML Data Loaded</span>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap gap-4 mb-10 items-end bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Start Note ID</label>
-                        <input type="number" id="start-idx" value="0" class="w-24 rounded-lg border-slate-300 border p-3 text-lg font-bold focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">End Note ID</label>
-                        <input type="number" id="end-idx" value="10" class="w-24 rounded-lg border-slate-300 border p-3 text-lg font-bold focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-                    <button id="play-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg transition transform active:scale-95 flex items-center gap-3">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5v13L16 10l-11.5-6.5z"/></svg>
-                        Play Selected Chords
-                    </button>
-                </div>
-
-                <div class="overflow-y-auto max-h-[500px] border border-slate-200 rounded-2xl shadow-inner">
-                    <table class="min-w-full divide-y divide-slate-200">
-                        <thead class="bg-slate-50 sticky top-0 z-10">
-                            <tr>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">ID</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Meas.</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Pitches</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Dur.</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-slate-100">
-                            {% for item in timeline_list %}
-                            <tr class="hover:bg-blue-50 cursor-pointer group" onclick="updateRange({{ forloop.counter0 }})">
-                                <td class="px-6 py-4 text-sm text-slate-400 font-mono">{{ forloop.counter0 }}</td>
-                                <td class="px-6 py-4 text-sm font-bold text-slate-600">Bar {{ item.measure }}</td>
-                                <td class="px-6 py-4 text-sm text-blue-600 font-bold group-hover:text-blue-800">{{ item.display_name }}</td>
-                                <td class="px-6 py-4 text-sm text-slate-400">{{ item.duration|stringformat:".2f" }}s</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% else %}
-            <div class="h-full flex flex-col items-center justify-center text-slate-300">
-                <h2 class="text-2xl font-bold">Welcome to the Hymn Dashboard</h2>
-                <p>Search and select a song from the sidebar to view detailed note data.</p>
-            </div>
-        {% endif %}
-    </main>
-
-    <script>
-        // 1. Sidebar Filter Logic
-        document.getElementById('sidebar-filter').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            const items = document.querySelectorAll('.song-item');
-            
-            items.forEach(item => {
-                const searchData = item.getAttribute('data-searchable').toLowerCase();
-                if (searchData.includes(term)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-
-        // 2. Playback Logic
-        const songData = {{ timeline_json|safe }};
-        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-
-        function updateRange(id) {
-            const startInput = document.getElementById('start-idx');
-            const endInput = document.getElementById('end-idx');
-            if (id <= parseInt(startInput.value)) {
-                startInput.value = id;
-            } else {
-                endInput.value = id;
-            }
-        }
-
-        document.getElementById('play-btn')?.addEventListener('click', async () => {
-            await Tone.start();
-            Tone.Transport.stop();
-            Tone.Transport.cancel();
-
-            const startIdx = parseInt(document.getElementById('start-idx').value);
-            const endIdx = parseInt(document.getElementById('end-idx').value);
-            
-            const selectedRange = songData.slice(startIdx, endIdx + 1);
-            let scheduleTime = 0;
-
-            selectedRange.forEach(event => {
-                if (event.pitches.length > 0) {
-                    Tone.Transport.schedule((time) => {
-                        synth.triggerAttackRelease(event.pitches, event.duration, time);
-                    }, scheduleTime);
-                }
-                scheduleTime += event.duration;
-            });
-
-            Tone.Transport.start();
-        });
-    </script>
-</body>
-</html> -->
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hymn Library & Range Player</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.1.0/build/opensheetmusicdisplay.min.js"></script>
 </head>
 <body class="bg-gray-100 flex h-screen overflow-hidden">
 
-    <div class="w-96 bg-slate-900 text-white flex flex-col shadow-2xl border-r border-slate-700">
+    <nav class="w-96 bg-slate-900 text-white flex flex-col shadow-2xl border-r border-slate-700" aria-label="Hymn Library Navigation">
         <div class="p-6 border-b border-slate-700 bg-slate-800">
             <h2 class="text-xl font-bold mb-4">Hymn Library</h2>
-            
             <div class="relative">
                 <input type="text" id="sidebar-filter" 
                        placeholder="Search by title, key, or lyrics..." 
@@ -606,47 +62,61 @@
             </a>
             {% endfor %}
         </div>
-    </div>
+
+        <div class="p-4 bg-slate-800 border-t border-slate-700 text-center">
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1">Support & Feedback</p>
+            <a href="mailto:info@fullchoir.com" class="text-sm text-blue-400 hover:text-blue-300 transition flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                info@fullchoir.com
+            </a>
+        </div>
+    </nav>
 
     <main class="flex-1 overflow-y-auto p-10 bg-slate-50">
         {% if selected_song %}
-            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <div class="mb-8">
+            <article class="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                <header class="mb-8">
                     <h1 class="text-4xl font-black text-slate-800">{{ selected_song.title|upper }}</h1>
                     <div class="flex gap-4 mt-2">
                         <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">Key: {{ selected_song.Key }}</span>
                         <span class="text-slate-400 italic text-sm py-1">MusicXML Notation Loaded</span>
                     </div>
-                </div>
+                </header>
 
-                <div class="mb-8 bg-white border border-slate-200 rounded-2xl p-4 shadow-inner overflow-hidden">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sheet Music</h3>
+                <section class="sr-only">
+                    <h2>Lyrics and Composition Details</h2>
+                    <p>{{ selected_song.content }}</p>
+                    <p>Contact the library administrator at info@fullchoir.com</p>
+                </section>
+
+                <section class="mb-8 bg-white border border-slate-200 rounded-2xl p-4 shadow-inner overflow-hidden">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Interactive Sheet Music</h3>
                     <div id="music-container" class="w-full min-h-[250px]"></div>
-                </div>
+                </section>
 
-                <div class="flex flex-wrap gap-4 mb-10 items-end bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                <section class="flex flex-wrap gap-4 mb-10 items-end bg-slate-50 p-6 rounded-2xl border border-slate-200">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Start Note ID</label>
+                        <label for="start-idx" class="block text-xs font-bold text-slate-500 uppercase mb-1">Start Note ID</label>
                         <input type="number" id="start-idx" value="0" class="w-24 rounded-lg border-slate-300 border p-3 text-lg font-bold focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">End Note ID</label>
+                        <label for="end-idx" class="block text-xs font-bold text-slate-500 uppercase mb-1">End Note ID</label>
                         <input type="number" id="end-idx" value="10" class="w-24 rounded-lg border-slate-300 border p-3 text-lg font-bold focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
                     <button id="play-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg transition transform active:scale-95 flex items-center gap-3">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3.5v13L16 10l-11.5-6.5z"/></svg>
                         Play Selected Chords
                     </button>
-                </div>
+                </section>
 
                 <div class="overflow-y-auto max-h-[500px] border border-slate-200 rounded-2xl shadow-inner">
                     <table class="min-w-full divide-y divide-slate-200">
                         <thead class="bg-slate-50 sticky top-0 z-10">
                             <tr>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">ID</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Meas.</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Pitches</th>
-                                <th class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Dur.</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Meas.</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Pitches</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-black text-slate-400 uppercase tracking-widest">Dur.</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-slate-100">
@@ -661,33 +131,29 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </article>
         {% else %}
             <div class="h-full flex flex-col items-center justify-center text-slate-300">
                 <h2 class="text-2xl font-bold">Welcome to the Hymn Dashboard</h2>
                 <p>Search and select a song from the sidebar to view detailed note data.</p>
+                <p class="mt-4 text-sm italic">Contact: info@fullchoir.com</p>
             </div>
         {% endif %}
     </main>
 
     <script>
-        // 1. Sidebar Filter Logic
+        // Sidebar Filter Logic
         document.getElementById('sidebar-filter').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
             const items = document.querySelectorAll('.song-item');
-            
             items.forEach(item => {
                 const searchData = item.getAttribute('data-searchable').toLowerCase();
-                if (searchData.includes(term)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = searchData.includes(term) ? 'block' : 'none';
             });
         });
 
-        // 2. Playback Logic
-        const songData = {{ timeline_json|safe }};
+        // Playback Logic
+        const songData = {{ timeline_json|safe|default:"[]" }};
         const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 
         function updateRange(id) {
@@ -704,13 +170,10 @@
             await Tone.start();
             Tone.Transport.stop();
             Tone.Transport.cancel();
-
             const startIdx = parseInt(document.getElementById('start-idx').value);
             const endIdx = parseInt(document.getElementById('end-idx').value);
-            
             const selectedRange = songData.slice(startIdx, endIdx + 1);
             let scheduleTime = 0;
-
             selectedRange.forEach(event => {
                 if (event.pitches.length > 0) {
                     Tone.Transport.schedule((time) => {
@@ -719,24 +182,18 @@
                 }
                 scheduleTime += event.duration;
             });
-
             Tone.Transport.start();
         });
 
-        // 3. Notation Rendering Logic
+        // Notation Rendering Logic
         {% if selected_song %}
         const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-container", {
-            drawTitle: false, 
-            autoResize: true, 
-            drawPartNames: false,
-            drawingParameters: "compacttight" // Optimization for dashboard view
+            drawTitle: false, autoResize: true, drawPartNames: false, drawingParameters: "compacttight"
         });
-
         const musicXml = `{{ xml_data|escapejs }}`;
         if (musicXml.length > 50) {
             osmd.load(musicXml).then(() => osmd.render());
         }
-
         window.addEventListener('resize', () => osmd.render());
         {% endif %}
     </script>
